@@ -5,11 +5,20 @@ const UserSchema: Schema = new Schema(
   {
     fullName: {
       type: String,
-      required: true,
     },
-    age: {
+    email: {
       type: String,
       required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    userImg: {
+      type: String,
+    },
+    age: {
+      type: Number,
     },
   },
 

@@ -1,8 +1,7 @@
-import { Document } from 'mongoose';
-
-export interface IUser extends Document {
-  userId?: string;
+export interface IUser {
   fullName: string;
-  age: string;
+  email: string;
+  password: string;
+  age: number;
   userImg: string;
 }
