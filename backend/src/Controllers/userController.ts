@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { IUser } from '../Types/IUser';
 import User from '../Models/User';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -48,7 +47,6 @@ export const loginUser = async (req: Request, res: Response) => {
     //check password
     const password_verified: boolean = bcrypt.compareSync(password, user.password);
     if (password_verified) {
-      //user matched
       const payload = {
         user_id: user._id,
       };
@@ -72,4 +70,22 @@ export const getUsers = async (req: Request, res: Response) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const getSingleUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.find({ _id: req.params.id }).sort({ date: -1 });
+    res.status(200).json(user);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { fullName, email, password, age } = req.body;
+    const userImg: string =
+      'https://res.cloudinary.com/dv5qiaugw/image/upload/v1658610837/profiler/avatar_pnrepu.jpg';
+    const harshed_password: string = bcrypt.hashSync(password, 12);
+  } catch (e) {}
 };

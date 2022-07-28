@@ -2,8 +2,9 @@ import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { getUsers, loginUser, registerUser } from './Controllers/UserController';
+import { getUsers, loginUser, registerUser } from './Controllers/userController';
 import mongoose from 'mongoose';
+import { auth } from './Middlewares/auth';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/register', registerUser);
 app.use('/login', loginUser);
-app.use('/users', getUsers);
+app.use('/users', auth, getUsers);
 
 //connect to mongodb
 mongoose.connect(
@@ -29,7 +30,7 @@ db.once('open', () => {
 });
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('<h1>Hello from the TypeScript world!</h1>');
+  res.send('<h1>Welcome to Typescript Profiler!</h1>');
 });
 
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
