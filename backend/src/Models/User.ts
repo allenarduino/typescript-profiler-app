@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { IUser } from '../Types/IUser';
 
 const UserSchema: Schema = new Schema(
   {
@@ -20,9 +19,12 @@ const UserSchema: Schema = new Schema(
     age: {
       type: Number,
     },
+    bio: {
+      type: String,
+    },
   },
 
   { timestamps: true },
 );
-const User = mongoose.model<IUser>('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 export default User;

@@ -2,9 +2,14 @@ import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { getUsers, loginUser, registerUser } from './Controllers/userController';
+import {
+  deleteUser,
+  getUsers,
+  loginUser,
+  registerUser,
+  updateUser,
+} from './Controllers/userController';
 import mongoose from 'mongoose';
-import { auth } from './Middlewares/auth';
 
 dotenv.config();
 
@@ -17,7 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/register', registerUser);
 app.use('/login', loginUser);
-app.use('/users', auth, getUsers);
+app.use('/users', getUsers);
+app.use('/update_user/:id', updateUser);
+app.use('/delete_user/:id', deleteUser);
 
 //connect to mongodb
 mongoose.connect(
